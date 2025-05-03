@@ -28,6 +28,7 @@ function TimerApp() {
 
   return (
     <div>
+      <h5>{timer}</h5>
       {timer === 0 ? (
         <button
           className="h-[22rem] w-[22rem] bg-[#1E213F] rounded-full flex flex-col m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
