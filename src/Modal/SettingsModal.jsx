@@ -58,9 +58,9 @@ function SettingsModal() {
 
   return (
     <div
-      className={`bg-white w-[100%] h-[575px] md:w-[540px] lg:h-[470px] fixed   m-auto z-[99999] rounded-3xl top-[30px] md:bottom-[100px] font-${initialFont} `}
+      className={`bg-white w-[100%] h-[575px] md:w-[540px] lg:h-[470px] fixed   m-auto z-[99999] rounded-3xl top-[5%] md:bottom-[100px] font-${initialFont} `}
     >
-      <div className="flex items-center justify-between md:py-6 border-b border-gray-300 py-3">
+      <div className="flex items-center justify-between  md:py-6 border-b border-gray-300 py-5">
         <h3
           className={`text-[#161932] font-bold font-${initialFont} text-4xl px-6`}
         >
@@ -73,7 +73,7 @@ function SettingsModal() {
           onClick={() => dispatch({ type: "closeModal" })}
         />
       </div>
-      <section className="px-6 py-4 md:py-7">
+      <section className="px-6 py-5 md:py-7">
         <div
           className={`flex flex-col  md:items-start gap-3 border-b pb-3 md:pb-5 border-gray-300 font-${initialFont} font-bold text-[#161932]`}
         >
@@ -98,7 +98,7 @@ function SettingsModal() {
                   />
                   {name === "pomodoro" && (
                     <div
-                      className={`absolute bottom-[15.7rem] left-[9.4rem] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[15.7rem] bottom-[70.3%] left-[87%] md:left-[9.4rem] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -118,7 +118,7 @@ function SettingsModal() {
                   )}
                   {name === "short break" && (
                     <div
-                      className={`absolute bottom-[15.7rem] right-[13rem] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[15.7rem] bottom-[60.4%] left-[87%] md:right-[13rem] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -137,7 +137,7 @@ function SettingsModal() {
                   )}
                   {name === "long break" && (
                     <div
-                      className={`absolute bottom-[15.7rem] right-[2.3rem]  flex flex-col gap-3`}
+                      className={`absolute md:bottom-[15.7rem]  bottom-[51%] left-[87%] md:right-[2.3rem]  flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -202,7 +202,7 @@ function SettingsModal() {
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 bg-[${initialColor}] rounded-full relative left-[10rem] top-[25px] md:left-[13.5rem] md:top-[-20px] font-${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 bg-[${initialColor}] rounded-full relative left-[35%] top-[5px] md:left-[13.5rem] md:top-[-20px] font-${initialFont} text-white font-bold `}
         onClick={() => handleSubmit()}
       >
         Apply

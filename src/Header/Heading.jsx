@@ -8,7 +8,7 @@ function Heading() {
     <section className="flex flex-col gap-6 items-center">
       <img src="/assets/logo.svg" />
       <div
-        className={`flex gap-3 font-${initialFont} text-white bg-[#161932] rounded-full py-[11px] px-[9px] text-[14.5px] md:text-[18px] md:py-3 md:px-3`}
+        className={`flex gap-3 font-${initialFont} text-white bg-[#161932]  rounded-full py-[11px] px-[9px] text-[14.5px] md:text-[18px] md:py-3 md:px-3`}
       >
         {fullOption.map((s, index) => {
           return (
