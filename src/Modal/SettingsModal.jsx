@@ -61,9 +61,7 @@ function SettingsModal() {
       className={`bg-white w-[100%] h-[575px] md:w-[540px] lg:h-[470px] fixed   m-auto z-[99999] rounded-3xl top-[5%] md:bottom-[100px] font-${initialFont} `}
     >
       <div className="flex items-center justify-between  md:py-6 border-b border-gray-300 py-5">
-        <h3
-          className={`text-[#161932] font-bold font-${initialFont} text-4xl px-6`}
-        >
+        <h3 className={`text-[#161932] font-bold ${initialFont} text-4xl px-6`}>
           Settings
         </h3>
         <img
@@ -75,9 +73,9 @@ function SettingsModal() {
       </div>
       <section className="px-6 py-5 md:py-7">
         <div
-          className={`flex flex-col  md:items-start gap-3 border-b pb-3 md:pb-5 border-gray-300 font-${initialFont} font-bold text-[#161932]`}
+          className={`flex flex-col  md:items-start gap-3 border-b pb-3 md:pb-5 border-gray-300 ${initialFont} font-bold text-[#161932]`}
         >
-          <h2 className="m-auto lg:m-0">TIME (MINUTES)</h2>
+          <h2 className=" m-auto md:m-0 lg:m-0">TIME (MINUTES)</h2>
           <div className="flex flex-col gap-4 md:flex md:flex-row lg:gap-7 items-center justify-evenly">
             {changeTime.map((s, i) => {
               const { name, defaultTime } = s;
@@ -160,7 +158,7 @@ function SettingsModal() {
           </div>
         </div>
         <div
-          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 border-b border-gray-300 font-${initialFont} font-bold text-[#161932]`}
+          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 border-b border-gray-300 ${initialFont} font-bold text-[#161932]`}
         >
           <h3>FONTS</h3>
           <div className="flex justify-evenly items-center gap-5 md:gap-2">
@@ -176,14 +174,14 @@ function SettingsModal() {
                   role="button"
                   onClick={() => setChangedFonts(s)}
                 >
-                  <p className={`font-${s}`}>Aa</p>
+                  <p className={`${s}`}>Aa</p>
                 </div>
               );
             })}
           </div>
         </div>
         <div
-          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 font-bold font-${initialFont} text-[#161932]`}
+          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 font-bold ${initialFont} text-[#161932]`}
         >
           <h3>COLOR</h3>
           <div className="flex justify-evenly items-center md:gap-2 gap-5">
@@ -191,7 +189,7 @@ function SettingsModal() {
               return (
                 <div
                   key={index}
-                  className={`h-[40px] w-[40px] rounded-full bg-[${s}] flex items-center justify-center font-bold`}
+                  className={`h-[40px] w-[40px] rounded-full ${s} flex items-center justify-center font-bold`}
                   onClick={() => setChangedColor(s)}
                 >
                   {changedColor === s && <FaCheck />}
@@ -202,7 +200,7 @@ function SettingsModal() {
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 bg-[${initialColor}] rounded-full relative left-[35%] top-[5px] md:left-[13.5rem] md:top-[-20px] font-${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 ${initialColor} rounded-full relative left-[35%] top-[5px] md:left-[40%] md:top-[15%] lg:left-[13.5rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
         onClick={() => handleSubmit()}
       >
         Apply

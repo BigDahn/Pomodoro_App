@@ -28,9 +28,6 @@ function TimerApp() {
 
   return (
     <div>
-      <h5>
-        {status ? "on" : "off"} : {timer}
-      </h5>
       {timer === 0 ? (
         <button
           className="h-[22rem] w-[22rem] bg-[#1E213F] rounded-full flex flex-col m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
@@ -83,12 +80,12 @@ function TimerApp() {
             >
               <div className="flex flex-col">
                 <h2
-                  className={`text-[5rem] text-white font-bold text-center font-${initialFont}`}
+                  className={`text-[5rem] text-white font-bold text-center ${initialFont}`}
                 >
                   {mins < 10 ? `0${mins}` : mins}:{sec < 10 ? `0${sec}` : sec}
                 </h2>
                 <h4
-                  className={`text-[20px] font-bold text-white font-${initialFont} tracking-[5px] text-center`}
+                  className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
                 >
                   RESTART
                 </h4>
@@ -149,12 +146,12 @@ function TimerApp() {
             >
               <div className="flex flex-col">
                 <h2
-                  className={`text-[5rem] text-white font-bold text-center font-${initialFont}`}
+                  className={`text-[5rem] text-white font-bold text-center ${initialFont}`}
                 >
                   {mins < 10 ? `0${mins}` : mins}:{sec < 10 ? `0${sec}` : sec}
                 </h2>
                 <h4
-                  className={`text-[20px] font-bold text-white font-${initialFont} tracking-[5px] text-center`}
+                  className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
                 >
                   {status ? "PAUSE" : "START"}
                 </h4>

@@ -2,8 +2,8 @@ import { createContext, useContext, useReducer } from "react";
 
 const PomodoroContext = createContext();
 
-const fonts = ["Kumbh_Sans", "Roboto_Slab", "Space_Mono"];
-const color = ["#f87070", "#70f2f7", "#d881f8"];
+const fonts = ["font-Kumbh_Sans", "font-Roboto_Slab", "font-Space_Mono"];
+const color = ["bg-[#f87070]", "bg-[#70f2f7]", "bg-[#d881f8]"];
 
 const fullOptions = [
   {
