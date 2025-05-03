@@ -1,26 +1,32 @@
 import { createContext, useContext, useReducer } from "react";
 
 const PomodoroContext = createContext();
-let timer = 0;
+
 const fonts = ["Kumbh_Sans", "Roboto_Slab", "Space_Mono"];
+const color = ["#f87070", "#70f2f7", "#d881f8"];
 
 const fullOptions = [
   {
     name: "pomodoro",
+    defaultTime: 25,
   },
-  { name: "short break" },
+  { name: "short break", defaultTime: 5 },
   {
     name: "long break",
+    defaultTime: 15,
   },
 ];
 
 const initialState = {
-  timer: timer,
-  maxValue: Math.floor(timer / 60),
+  timer: fullOptions.map((s) => s.defaultTime)[0] * 60,
+  defaultTime: fullOptions.map((s) => s.defaultTime),
+  maxValue: fullOptions.map((s) => s.defaultTime)[0],
   options: fullOptions.at(0).name,
   status: false,
   isModal: false,
-  initialFont: fonts.at(2),
+  initialFont: fonts.at(0),
+  initialColor: color.at(0),
+  fullOption: fullOptions,
 };
 
 function reducer(state, action) {
@@ -42,13 +48,21 @@ function reducer(state, action) {
     case "options": {
       return {
         ...state,
-        options: fullOptions.filter((s) => s.name === action.payload)[0].name,
+        options: state.fullOption.filter((s) => s.name === action.payload)[0]
+          .name,
+        timer:
+          state.fullOption.filter((s) => s.name === action.payload)[0]
+            .defaultTime * 60,
+        maxValue: state.fullOption.filter((s) => s.name === action.payload)[0]
+          .defaultTime,
+        status: false,
       };
     }
     case "openModal": {
       return {
         ...state,
         isModal: true,
+        status: false,
       };
     }
     case "closeModal": {
@@ -57,18 +71,41 @@ function reducer(state, action) {
         isModal: false,
       };
     }
-    case "font": {
+    case "form": {
       return {
         ...state,
-        initialFont: fonts.filter((s) => s === action.payload)[0],
+      };
+    }
+    case "apply": {
+      console.log(action.payload);
+      return {
+        ...state,
+        defaultTime: action.payload.changeTime.map((s) => s.defaultTime),
+        initialColor: action.payload.changedColor,
+        initialFont: action.payload.changedFont,
+        isModal: false,
+        timer: action.payload.changeTime.map((s) => s.defaultTime)[0] * 60,
+        fullOption: action.payload.changeTime,
       };
     }
   }
 }
 
 function PomodoroApp({ children }) {
-  const [{ timer, status, maxValue, options, isModal, initialFont }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    {
+      timer,
+      status,
+      maxValue,
+      options,
+      isModal,
+      initialFont,
+      initialColor,
+      defaultTime,
+      fullOption,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   return (
     <PomodoroContext.Provider
       value={{
@@ -77,10 +114,13 @@ function PomodoroApp({ children }) {
         dispatch,
         maxValue,
         options,
-        fullOptions,
+        fullOption,
         isModal,
         fonts,
         initialFont,
+        initialColor,
+        color,
+        defaultTime,
       }}
     >
       {children}

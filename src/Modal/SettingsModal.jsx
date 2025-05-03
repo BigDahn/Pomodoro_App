@@ -1,10 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePomodoro } from "../contexts/Pomodoro";
+import { FaCheck } from "react-icons/fa";
 
 function SettingsModal() {
-  const { dispatch, initialFont, fonts } = usePomodoro();
+  const {
+    dispatch,
+    initialFont,
+    fonts,
+    initialColor,
+    color,
+    // defaultTime,
+    fullOption,
+  } = usePomodoro();
 
-  console.log(initialFont);
+  const [changedFont, setChangedFonts] = useState(initialFont);
+  const [changedColor, setChangedColor] = useState(initialColor);
+  const [changeTime, setChangeTime] = useState(fullOption);
+
+  const IncreaseButton = (name) => {
+    const newTime = changeTime.map((s) => {
+      if (s.name === name) {
+        return {
+          ...s,
+          defaultTime:
+            (s.name === "pomodoro" && s.defaultTime < 25
+              ? 25
+              : s.defaultTime + 1) ||
+            (s.name === "short break" && s.defaultTime < 5
+              ? 5
+              : s.defaultTime + 1) ||
+            (s.name === "long break" && s.defaultTime < 15
+              ? 10
+              : s.defaultTime + 1),
+        };
+      }
+      return s;
+    });
+
+    setChangeTime(newTime);
+  };
+  const DecreaseButton = (name) => {
+    const newTime = changeTime.map((s) => {
+      if (s.name === name) {
+        return {
+          ...s,
+          defaultTime: s.defaultTime - 1,
+        };
+      }
+      return s;
+    });
+
+    setChangeTime(newTime);
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      changeTime,
+      changedColor,
+      changedFont,
+    };
+
+    dispatch({ type: "apply", payload: data });
+  };
+
   return (
     <div
       className={`bg-white w-[540px] h-[470px] fixed   m-auto z-[99999] rounded-3xl bottom-[100px] font-${initialFont} `}
@@ -28,48 +86,81 @@ function SettingsModal() {
         >
           <h2>TIME (MINUTES)</h2>
           <div className="flex gap-5 items-center justify-evenly">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="pomodoro" className="text-gray-400">
-                pomodoro
-              </label>
-              <input
-                type="text"
-                className="bg-gray-300 h-10 w-[9rem] rounded-md outline-none px-4 relative"
-                name="pomodoro"
-              />
-              <div className="absolute bottom-[15.7rem] left-[9.4rem] flex flex-col gap-3">
-                <img src="/assets/icon-arrow-up.svg" />
-                <img src="/assets/icon-arrow-down.svg" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="short break" className="text-gray-400">
-                short break
-              </label>
-              <input
-                type="text"
-                className="bg-gray-300 h-10 w-[9rem] rounded-md outline-none px-4 relative"
-                name="short break"
-              />
-              <div className="absolute bottom-[15.7rem] right-[13rem] flex flex-col gap-3">
-                <img src="/assets/icon-arrow-up.svg" />
-                <img src="/assets/icon-arrow-down.svg" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="long break" className="text-gray-400">
-                long break
-              </label>
-              <input
-                type="text"
-                className="bg-gray-300 h-10 w-[9rem] rounded-md outline-none px-4 relative"
-                name="long break"
-              />
-              <div className="absolute bottom-[15.7rem] right-[2.3rem] flex flex-col gap-3">
-                <img src="/assets/icon-arrow-up.svg" />
-                <img src="/assets/icon-arrow-down.svg" />
-              </div>
-            </div>
+            {changeTime.map((s, i) => {
+              const { name, defaultTime } = s;
+              return (
+                <div className="flex flex-col gap-2" key={i}>
+                  <label htmlFor={name} className="text-gray-400">
+                    {name}
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-300 h-10 w-[9rem] rounded-md outline-none px-4 relative disabled:cursor-not-allowed"
+                    name={name}
+                    value={defaultTime}
+                    disabled
+                  />
+                  {name === "pomodoro" && (
+                    <div
+                      className={`absolute bottom-[15.7rem] left-[9.4rem] flex flex-col gap-3`}
+                    >
+                      <button
+                        onClick={() => IncreaseButton(name)}
+                        className="cursor-pointer"
+                      >
+                        <img src="/assets/icon-arrow-up.svg" />
+                      </button>
+
+                      <button
+                        onClick={() => DecreaseButton(name)}
+                        className="cursor-pointer disabled:cursor-not-allowed"
+                        disabled={defaultTime === 25}
+                      >
+                        <img src="/assets/icon-arrow-down.svg" />
+                      </button>
+                    </div>
+                  )}
+                  {name === "short break" && (
+                    <div
+                      className={`absolute bottom-[15.7rem] right-[13rem] flex flex-col gap-3`}
+                    >
+                      <button
+                        onClick={() => IncreaseButton(name)}
+                        className="cursor-pointer"
+                      >
+                        <img src="/assets/icon-arrow-up.svg" />
+                      </button>
+                      <button
+                        onClick={() => DecreaseButton(name)}
+                        className="cursor-pointer disabled:cursor-not-allowed"
+                        disabled={defaultTime === 5}
+                      >
+                        <img src="/assets/icon-arrow-down.svg" />
+                      </button>
+                    </div>
+                  )}
+                  {name === "long break" && (
+                    <div
+                      className={`absolute bottom-[15.7rem] right-[2.3rem]  flex flex-col gap-3`}
+                    >
+                      <button
+                        onClick={() => IncreaseButton(name)}
+                        className="cursor-pointer"
+                      >
+                        <img src="/assets/icon-arrow-up.svg" />
+                      </button>
+                      <button
+                        onClick={() => DecreaseButton(name)}
+                        disabled={defaultTime === 15}
+                        className="cursor-pointer disabled:cursor-not-allowed"
+                      >
+                        <img src="/assets/icon-arrow-down.svg" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div
@@ -81,33 +172,42 @@ function SettingsModal() {
               return (
                 <div
                   key={i}
-                  className={`h-[40px] w-[40px] rounded-full bg-red-500 flex items-center justify-center font-bold font-${s}`}
+                  className={`${
+                    changedFont === s
+                      ? "h-[40px] w-[40px] rounded-full bg-[#161932] text-white cursor-pointer  flex items-center justify-center font-bold font-${s}"
+                      : "h-[40px] w-[40px] rounded-full bg-gray-200 cursor-pointer flex items-center justify-center font-bold font-${s}"
+                  }`}
                   role="button"
-                  onClick={() => dispatch({ type: "font", payload: s })}
+                  onClick={() => setChangedFonts(s)}
                 >
-                  Aa
+                  <p className={`font-${s}`}>Aa</p>
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="flex items-center justify-between py-7 font-bold font-Kumbh_Sans text-[#161932]">
+        <div
+          className={`flex items-center justify-between py-7 font-bold font-${initialFont} text-[#161932]`}
+        >
           <h3>COLOR</h3>
           <div className="flex justify-evenly items-center gap-2">
-            <div className="h-[40px] w-[40px] rounded-full bg-[#f87070]  flex items-center justify-center font-bold">
-              Aa
-            </div>
-            <div className="h-[40px] w-[40px] rounded-full bg-red-500 flex items-center justify-center font-bold">
-              Aa
-            </div>
-            <div className="h-[40px] w-[40px] rounded-full bg-red-500 flex items-center justify-center font-bold">
-              Aa
-            </div>
+            {color.map((s, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`h-[40px] w-[40px] rounded-full bg-[${s}] flex items-center justify-center font-bold`}
+                  onClick={() => setChangedColor(s)}
+                >
+                  {changedColor === s && <FaCheck />}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 bg-[#f87070] rounded-full relative left-[13.5rem] top-[-20px] font-${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 bg-[${initialColor}] rounded-full relative left-[13.5rem] top-[-20px] font-${initialFont} text-white font-bold `}
+        onClick={() => handleSubmit()}
       >
         Apply
       </button>
