@@ -82,9 +82,9 @@ function TimerApp() {
                 {mins < 10 ? `0${mins}` : mins}:{sec < 10 ? `0${sec}` : sec}
               </h2>
               <h4
-                className={`text-[20px] font-bold text-white font-${initialFont}`}
+                className={`text-[20px] font-bold text-white font-${initialFont} tracking-[5px] text-center`}
               >
-                {status ? "pause" : "start"}
+                {status ? "PAUSE" : "START"}
               </h4>
             </div>
           </CircularProgressbarWithChildren>

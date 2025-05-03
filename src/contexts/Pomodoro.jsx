@@ -86,6 +86,7 @@ function reducer(state, action) {
         isModal: false,
         timer: action.payload.changeTime.map((s) => s.defaultTime)[0] * 60,
         fullOption: action.payload.changeTime,
+        options: state.fullOption.map((s) => s.name)[0],
       };
     }
   }

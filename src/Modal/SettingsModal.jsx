@@ -3,15 +3,8 @@ import { usePomodoro } from "../contexts/Pomodoro";
 import { FaCheck } from "react-icons/fa";
 
 function SettingsModal() {
-  const {
-    dispatch,
-    initialFont,
-    fonts,
-    initialColor,
-    color,
-    // defaultTime,
-    fullOption,
-  } = usePomodoro();
+  const { dispatch, initialFont, fonts, initialColor, color, fullOption } =
+    usePomodoro();
 
   const [changedFont, setChangedFonts] = useState(initialFont);
   const [changedColor, setChangedColor] = useState(initialColor);
