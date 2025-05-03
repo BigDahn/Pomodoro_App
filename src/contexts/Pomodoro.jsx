@@ -35,7 +35,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: state.status && state.timer <= 0 ? false : true,
-        timer: state.timer <= 0 ? 0 : state.timer - 1,
+        timer: state.timer <= 0 ? 0 : state.timer--,
       };
     }
     case "start/pause": {
