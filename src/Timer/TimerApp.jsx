@@ -112,7 +112,7 @@ function TimerApp() {
                 // Customize the path, i.e. the "completed progress"
                 path: {
                   // Path color
-                  stroke: `${initialColor}`,
+                  stroke: `${initialColor.fill}`,
                   // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                   strokeLinecap: "round",
                   // Customize transition animation

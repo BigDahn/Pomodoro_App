@@ -3,7 +3,20 @@ import { createContext, useContext, useReducer } from "react";
 const PomodoroContext = createContext();
 
 const fonts = ["font-Kumbh_Sans", "font-Roboto_Slab", "font-Space_Mono"];
-const color = ["bg-[#f87070]", "bg-[#70f2f7]", "bg-[#d881f8]"];
+const color = [
+  {
+    color: "bg-[#f87070]",
+    fill: "#f87070",
+  },
+  {
+    color: "bg-[#70f2f7]",
+    fill: "#70f2f7",
+  },
+  {
+    color: "bg-[#d881f8]",
+    fill: "#d881f8",
+  },
+];
 
 const fullOptions = [
   {

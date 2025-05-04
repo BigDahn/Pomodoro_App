@@ -96,7 +96,7 @@ function SettingsModal() {
                   />
                   {name === "pomodoro" && (
                     <div
-                      className={`absolute md:bottom-[15.7rem] bottom-[70.3%] left-[87%] md:left-[9.4rem] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[15.7rem] bottom-[70.3%] left-[87%] md:left-[9%] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -116,7 +116,7 @@ function SettingsModal() {
                   )}
                   {name === "short break" && (
                     <div
-                      className={`absolute md:bottom-[15.7rem] bottom-[60.4%] left-[87%] md:right-[13rem] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[53.4%] bottom-[60.4%] left-[87%] md:left-[59%] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -135,7 +135,7 @@ function SettingsModal() {
                   )}
                   {name === "long break" && (
                     <div
-                      className={`absolute md:bottom-[15.7rem]  bottom-[51%] left-[87%] md:right-[2.3rem]  flex flex-col gap-3`}
+                      className={`absolute md:bottom-[53.4%]  bottom-[51%] left-[87%]  md:left-[90.4%]  flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -189,7 +189,7 @@ function SettingsModal() {
               return (
                 <div
                   key={index}
-                  className={`h-[40px] w-[40px] rounded-full ${s} flex items-center justify-center font-bold`}
+                  className={`h-[40px] w-[40px] rounded-full ${s.color} flex items-center justify-center font-bold`}
                   onClick={() => setChangedColor(s)}
                 >
                   {changedColor === s && <FaCheck />}
@@ -200,7 +200,7 @@ function SettingsModal() {
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 ${initialColor} rounded-full relative left-[35%] top-[5px] md:left-[40%] md:top-[15%] lg:left-[13.5rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 ${initialColor.color} rounded-full relative left-[35%] top-[5px] md:left-[40%] md:top-[15%] lg:left-[13.5rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
         onClick={() => handleSubmit()}
       >
         Apply

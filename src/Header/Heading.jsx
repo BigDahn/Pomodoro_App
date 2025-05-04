@@ -16,7 +16,7 @@ function Heading() {
               key={index}
               className={`${
                 options === s.name
-                  ? `${initialColor} rounded-full py-[11px] px-[9px] md:py-2 md:px-5 font-bold cursor-pointer`
+                  ? `${initialColor.color} rounded-full py-[11px] px-[9px] md:py-2 md:px-5 font-bold cursor-pointer`
                   : " py-[11px] px-[9px] md:py-2 md:px-5 font-bold cursor-pointer "
               }`}
               onClick={() => dispatch({ type: "options", payload: s.name })}
