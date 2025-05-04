@@ -21,19 +21,19 @@ const color = [
 const fullOptions = [
   {
     name: "pomodoro",
-    defaultTime: 25,
+    defaultTime: 1500,
   },
-  { name: "short break", defaultTime: 5 },
+  { name: "short break", defaultTime: 300 },
   {
     name: "long break",
-    defaultTime: 15,
+    defaultTime: 900,
   },
 ];
 
 const initialState = {
-  timer: fullOptions.map((s) => s.defaultTime)[0] * 60,
+  timer: fullOptions.map((s) => s.defaultTime)[0],
   defaultTime: fullOptions.map((s) => s.defaultTime),
-  maxValue: fullOptions.map((s) => s.defaultTime)[0],
+  maxValue: fullOptions.map((s) => s.defaultTime)[0] / 60,
   options: fullOptions.at(0).name,
   status: false,
   isModal: false,
@@ -45,10 +45,21 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "on": {
+      const ini = state.fullOption.map((s) => {
+        if (s.name === state.options) {
+          return {
+            ...s,
+            defaultTime: s.defaultTime - 1,
+          };
+        }
+        return s;
+      });
+      console.log(state.fullOption);
       return {
         ...state,
         status: state.status && state.timer <= 0 ? false : true,
         timer: state.timer <= 0 ? 0 : state.timer - 1,
+        fullOption: ini,
       };
     }
     case "start/pause": {
@@ -68,15 +79,17 @@ function reducer(state, action) {
       };
     }
     case "options": {
+      console.log(state.fullOption);
+      console.log(state.timer);
       return {
         ...state,
         options: state.fullOption.filter((s) => s.name === action.payload)[0]
           .name,
-        timer:
-          state.fullOption.filter((s) => s.name === action.payload)[0]
-            .defaultTime * 60,
-        maxValue: state.fullOption.filter((s) => s.name === action.payload)[0]
+        timer: state.fullOption.filter((s) => s.name === action.payload)[0]
           .defaultTime,
+        maxValue:
+          fullOptions.filter((s) => s.name === action.payload)[0].defaultTime /
+          60,
         status: false,
       };
     }
@@ -102,12 +115,17 @@ function reducer(state, action) {
       console.log(action.payload);
       return {
         ...state,
-        defaultTime: action.payload.changeTime.map((s) => s.defaultTime),
+        //defaultTime: action.payload.changeTime.map((s) => s.defaultTime),
         initialColor: action.payload.changedColor,
         initialFont: action.payload.changedFont,
         isModal: false,
         timer: action.payload.changeTime.map((s) => s.defaultTime)[0] * 60,
-        fullOption: action.payload.changeTime,
+        fullOption: action.payload.changeTime.map((s) => {
+          return {
+            ...s,
+            defaultTime: s.defaultTime * 60,
+          };
+        }),
         options: state.fullOption.map((s) => s.name)[0],
       };
     }
@@ -144,6 +162,7 @@ function PomodoroApp({ children }) {
         initialColor,
         color,
         defaultTime,
+        fullOptions,
       }}
     >
       {children}

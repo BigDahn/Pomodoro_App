@@ -3,14 +3,31 @@ import { usePomodoro } from "../contexts/Pomodoro";
 import { FaCheck } from "react-icons/fa";
 
 function SettingsModal() {
-  const { dispatch, initialFont, fonts, initialColor, color, fullOption } =
+  const { dispatch, initialFont, fonts, initialColor, color, fullOptions } =
     usePomodoro();
 
   const [changedFont, setChangedFonts] = useState(initialFont);
   const [changedColor, setChangedColor] = useState(initialColor);
-  const [changeTime, setChangeTime] = useState(fullOption);
+  const [changeTime, setChangeTime] = useState(
+    fullOptions.map((s) => {
+      return {
+        ...s,
+        defaultTime: Math.floor(s.defaultTime / 60),
+      };
+    })
+  );
+
+  console.log(
+    fullOptions.map((s) => {
+      return {
+        ...s,
+        defaultTime: s.defaultTime / 60,
+      };
+    })
+  );
 
   const IncreaseButton = (name) => {
+    console.log(name);
     const newTime = changeTime.map((s) => {
       if (s.name === name) {
         return {
@@ -29,7 +46,7 @@ function SettingsModal() {
       }
       return s;
     });
-
+    console.log(newTime);
     setChangeTime(newTime);
   };
   const DecreaseButton = (name) => {
@@ -79,6 +96,9 @@ function SettingsModal() {
           <div className="flex flex-col gap-4 md:flex md:flex-row lg:gap-7 items-center justify-evenly">
             {changeTime.map((s, i) => {
               const { name, defaultTime } = s;
+              //const newDefaultTime = defaultTime / 60;
+
+              console.log(defaultTime);
               return (
                 <div
                   className="flex flex-row w-[100%] gap-3 md:flex-col justify-between md:gap-2"
