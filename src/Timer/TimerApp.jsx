@@ -144,7 +144,7 @@ function TimerApp() {
                 },
               }}
             >
-              <div className="flex flex-col">
+              <div className="flex flex-col cursor-pointer">
                 <h2
                   className={`text-[5rem] text-white font-bold text-center ${initialFont}`}
                 >

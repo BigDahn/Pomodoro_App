@@ -96,7 +96,7 @@ function SettingsModal() {
                   />
                   {name === "pomodoro" && (
                     <div
-                      className={`absolute md:bottom-[15.7rem] bottom-[70.3%] left-[87%] md:left-[9%] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[53.4%] bottom-[70.3%] left-[87%] md:left-[27%] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -189,7 +189,7 @@ function SettingsModal() {
               return (
                 <div
                   key={index}
-                  className={`h-[40px] w-[40px] rounded-full ${s.color} flex items-center justify-center font-bold`}
+                  className={`h-[40px] w-[40px] rounded-full cursor-pointer ${s.color} flex items-center justify-center font-bold`}
                   onClick={() => setChangedColor(s)}
                 >
                   {changedColor === s && <FaCheck />}
