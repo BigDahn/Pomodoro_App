@@ -220,7 +220,7 @@ function SettingsModal() {
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 ${initialColor.color} rounded-full relative left-[35%] top-[5px] md:left-[40%] md:top-[15%] lg:left-[13.5rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 ${initialColor.color} rounded-full relative left-[35%] top-[5px] md:left-[30%] md:top-[15%] lg:left-[13rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
         onClick={() => handleSubmit()}
       >
         Apply

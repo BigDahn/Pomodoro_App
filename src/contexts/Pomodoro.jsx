@@ -49,12 +49,16 @@ function reducer(state, action) {
         if (s.name === state.options) {
           return {
             ...s,
-            defaultTime: s.defaultTime - 1,
+            defaultTime:
+              s.defaultTime === 0
+                ? state.fullOption.filter((s) => s.name === state.options)[0]
+                    .defaultTime
+                : s.defaultTime - 1,
           };
         }
         return s;
       });
-      console.log(state.fullOption);
+      //console.log(state.fullOption);
       return {
         ...state,
         status: state.status && state.timer <= 0 ? false : true,
@@ -63,6 +67,21 @@ function reducer(state, action) {
       };
     }
     case "start/pause": {
+      console.log(state.options);
+      console.log(
+        state.fullOption.map((s) => {
+          if (s.name === state.options) {
+            return {
+              ...s,
+              defaultTime: fullOptions.filter(
+                (s) => s.name === state.options
+              )[0].defaultTime,
+            };
+          }
+          return s;
+        })
+      );
+
       return {
         ...state,
         status: !state.status,
@@ -70,17 +89,54 @@ function reducer(state, action) {
       };
     }
     case "restart": {
+      const newState = state.fullOption.map((s) => {
+        if (s.name === state.options) {
+          return {
+            ...s,
+            defaultTime: fullOptions.filter((s) => s.name === state.options)[0]
+              .defaultTime,
+          };
+        }
+        return s;
+      });
+      console.log(
+        newState.filter((s) => s.name === state.options)[0].defaultTime
+      );
       return {
         ...state,
         status: true,
-        timer:
-          state.fullOption.filter((s) => s.name === state.options)[0]
-            .defaultTime * 60,
+        fullOption: state.fullOption.map((s) => {
+          if (s.name === state.options) {
+            return {
+              ...s,
+              defaultTime: fullOptions.filter(
+                (s) => s.name === state.options
+              )[0].defaultTime,
+            };
+          }
+          return s;
+        }),
+        timer: newState.filter((s) => s.name === state.options)[0].defaultTime,
       };
     }
     case "options": {
       console.log(state.fullOption);
       console.log(state.timer);
+      console.log(state.options);
+      console.log(
+        state.fullOption.map((s) => {
+          if (s.name === state.options) {
+            return {
+              ...s,
+              defaultTime: fullOptions.filter(
+                (s) => s.name === state.options
+              )[0].defaultTime,
+            };
+          }
+          return s;
+        })
+      );
+      // console.log(state.timer);
       return {
         ...state,
         options: state.fullOption.filter((s) => s.name === action.payload)[0]

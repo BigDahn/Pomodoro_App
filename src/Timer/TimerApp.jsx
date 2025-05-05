@@ -144,11 +144,18 @@ function TimerApp() {
                 },
               }}
             >
-              <div className="flex flex-col cursor-pointer">
+              <div className="flex flex-col cursor-pointer w-[15rem] m-auto items-center  ">
                 <h2
-                  className={`text-[5rem] text-white font-bold text-center ${initialFont}`}
+                  className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
                 >
-                  {mins < 10 ? `0${mins}` : mins}:{sec < 10 ? `0${sec}` : sec}
+                  <h4 className="w-[7rem]  bg-red- ">
+                    {mins < 10 ? `0${mins}` : mins}
+                  </h4>
+                  :
+                  <h3 className="w-[7rem] bg-red-">
+                    {" "}
+                    {sec < 10 ? `0${sec}` : sec}
+                  </h3>
                 </h2>
                 <h4
                   className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
