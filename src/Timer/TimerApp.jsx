@@ -12,10 +12,11 @@ function TimerApp() {
   const mins = Math.floor(timer / 60);
   const sec = timer % 60;
 
+  console.log(maxValue);
+
   const value = mins < 1 ? sec : mins;
 
-  const MaxValue = mins > 1 && maxValue;
-
+  const MaxValue = mins > 1 ? maxValue : 60;
   useEffect(() => {
     //dispatch({ type: "on" });
     if (status) {
@@ -145,7 +146,7 @@ function TimerApp() {
               }}
             >
               <div className="flex flex-col cursor-pointer w-[15rem] m-auto items-center  ">
-                <h2
+                <div
                   className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
                 >
                   <h4 className="w-[7rem]  bg-red- ">
@@ -156,7 +157,7 @@ function TimerApp() {
                     {" "}
                     {sec < 10 ? `0${sec}` : sec}
                   </h3>
-                </h2>
+                </div>
                 <h4
                   className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
                 >

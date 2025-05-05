@@ -67,21 +67,6 @@ function reducer(state, action) {
       };
     }
     case "start/pause": {
-      console.log(state.options);
-      console.log(
-        state.fullOption.map((s) => {
-          if (s.name === state.options) {
-            return {
-              ...s,
-              defaultTime: fullOptions.filter(
-                (s) => s.name === state.options
-              )[0].defaultTime,
-            };
-          }
-          return s;
-        })
-      );
-
       return {
         ...state,
         status: !state.status,
@@ -99,9 +84,7 @@ function reducer(state, action) {
         }
         return s;
       });
-      console.log(
-        newState.filter((s) => s.name === state.options)[0].defaultTime
-      );
+
       return {
         ...state,
         status: true,
@@ -120,23 +103,6 @@ function reducer(state, action) {
       };
     }
     case "options": {
-      console.log(state.fullOption);
-      console.log(state.timer);
-      console.log(state.options);
-      console.log(
-        state.fullOption.map((s) => {
-          if (s.name === state.options) {
-            return {
-              ...s,
-              defaultTime: fullOptions.filter(
-                (s) => s.name === state.options
-              )[0].defaultTime,
-            };
-          }
-          return s;
-        })
-      );
-      // console.log(state.timer);
       return {
         ...state,
         options: state.fullOption.filter((s) => s.name === action.payload)[0]
@@ -168,7 +134,6 @@ function reducer(state, action) {
       };
     }
     case "apply": {
-      console.log(action.payload);
       return {
         ...state,
         //defaultTime: action.payload.changeTime.map((s) => s.defaultTime),
