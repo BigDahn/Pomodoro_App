@@ -12,7 +12,7 @@ function TimerApp() {
   const mins = Math.floor(timer / 60);
   const sec = timer % 60;
 
-  console.log(maxValue);
+
 
   const value = mins < 1 ? sec : mins;
 
@@ -149,11 +149,17 @@ function TimerApp() {
                 <div
                   className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
                 >
-                  <h4 className="w-[7rem]  bg-red- ">
+                    <h4 className="w-[7rem]">
                     {mins < 10 ? `0${mins}` : mins}
                   </h4>
                   :
-                  <h3 className="w-[7rem] bg-red-">
+                  <h3
+                    className={`${
+                      mins < 1 && sec < 30
+                        ? "w-[7rem] text-red-600 animate-pulse"
+                        : "w-[7rem] "
+                    }`}
+                  >
                     {" "}
                     {sec < 10 ? `0${sec}` : sec}
                   </h3>

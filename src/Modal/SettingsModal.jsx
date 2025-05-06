@@ -17,15 +17,6 @@ function SettingsModal() {
     })
   );
 
-  console.log(
-    fullOptions.map((s) => {
-      return {
-        ...s,
-        defaultTime: s.defaultTime / 60,
-      };
-    })
-  );
-
   const IncreaseButton = (name) => {
     console.log(name);
     const newTime = changeTime.map((s) => {
@@ -46,7 +37,7 @@ function SettingsModal() {
       }
       return s;
     });
-    console.log(newTime);
+
     setChangeTime(newTime);
   };
   const DecreaseButton = (name) => {
@@ -75,7 +66,7 @@ function SettingsModal() {
 
   return (
     <div
-      className={`bg-white w-[100%] h-[575px] md:w-[540px] lg:h-[470px] fixed   m-auto z-[99999] rounded-3xl top-[5%] md:bottom-[100px] font-${initialFont} `}
+      className={`bg-white w-[100%] h-[575px] md:w-[540px] lg:h-[470px] fixed   m-auto z-[99999] rounded-3xl top-[5%] lg:bottom-[100px] font-${initialFont} `}
     >
       <div className="flex items-center justify-between  md:py-6 border-b border-gray-300 py-5">
         <h3 className={`text-[#161932] font-bold ${initialFont} text-4xl px-6`}>
@@ -88,20 +79,18 @@ function SettingsModal() {
           onClick={() => dispatch({ type: "closeModal" })}
         />
       </div>
-      <section className="px-6 py-5 md:py-7">
+      <section className="px-6 py-5 md:py-8 lg:py-7">
         <div
-          className={`flex flex-col  md:items-start gap-3 border-b pb-3 md:pb-5 border-gray-300 ${initialFont} font-bold text-[#161932]`}
+          className={`flex flex-col  md:items-start gap-3 border-b pb-3 md:pb-7 lg:pb-5 border-gray-300 ${initialFont} font-bold text-[#161932]`}
         >
           <h2 className=" m-auto md:m-0 lg:m-0">TIME (MINUTES)</h2>
-          <div className="flex flex-col gap-4 md:flex md:flex-row lg:gap-7 items-center justify-evenly">
+          <div className="flex flex-col gap-4 md:flex md:flex-row  md:gap-5 lg:gap-7 items-center justify-evenly">
             {changeTime.map((s, i) => {
               const { name, defaultTime } = s;
-              //const newDefaultTime = defaultTime / 60;
 
-              console.log(defaultTime);
               return (
                 <div
-                  className="flex flex-row w-[100%] gap-3 md:flex-col justify-between md:gap-2"
+                  className="flex flex-row w-[100%] gap-3 md:flex-col justify-between md:gap-2 lg:gap-2"
                   key={i}
                 >
                   <label htmlFor={name} className="text-gray-400">
@@ -109,14 +98,14 @@ function SettingsModal() {
                   </label>
                   <input
                     type="text"
-                    className="bg-gray-300 h-10 w-[10rem] md:w-[9rem] rounded-md outline-none px-4 relative disabled:cursor-not-allowed"
+                    className="bg-gray-300 h-10 w-[10rem] md:w-[9.4rem] lg:w-[9rem] rounded-md outline-none px-4 relative disabled:cursor-not-allowed"
                     name={name}
                     value={defaultTime}
                     disabled
                   />
                   {name === "pomodoro" && (
                     <div
-                      className={`absolute md:bottom-[53.4%] bottom-[70.3%] left-[87%] md:left-[27%] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[61.5%] lg:bottom-[53.4%] bottom-[70.3%] left-[87%] md:left-[28%] lg:left-[27%] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -136,7 +125,7 @@ function SettingsModal() {
                   )}
                   {name === "short break" && (
                     <div
-                      className={`absolute md:bottom-[53.4%] bottom-[60.4%] left-[87%] md:left-[59%] flex flex-col gap-3`}
+                      className={`absolute md:bottom-[61.5%] lg:bottom-[53.4%] bottom-[60.4%] left-[87%] md:left-[59%] lg:left-[59%] flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -155,7 +144,7 @@ function SettingsModal() {
                   )}
                   {name === "long break" && (
                     <div
-                      className={`absolute md:bottom-[53.4%]  bottom-[51%] left-[87%]  md:left-[90.4%]  flex flex-col gap-3`}
+                      className={`absolute md:bottom-[61.5%] lg:bottom-[53.4%]  bottom-[51%] left-[87%] md:left-[91.5%] lg:left-[90.4%]  flex flex-col gap-3`}
                     >
                       <button
                         onClick={() => IncreaseButton(name)}
@@ -178,7 +167,7 @@ function SettingsModal() {
           </div>
         </div>
         <div
-          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 border-b border-gray-300 ${initialFont} font-bold text-[#161932]`}
+          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-8 lg:py-7 border-b border-gray-300 ${initialFont} font-bold text-[#161932]`}
         >
           <h3>FONTS</h3>
           <div className="flex justify-evenly items-center gap-5 md:gap-2">
@@ -201,7 +190,7 @@ function SettingsModal() {
           </div>
         </div>
         <div
-          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-7 font-bold ${initialFont} text-[#161932]`}
+          className={`flex flex-col gap-2 md:flex md:flex-row items-center justify-between py-5 md:py-8 lg:py-7 font-bold ${initialFont} text-[#161932]`}
         >
           <h3>COLOR</h3>
           <div className="flex justify-evenly items-center md:gap-2 gap-5">
@@ -220,7 +209,7 @@ function SettingsModal() {
         </div>
       </section>
       <button
-        className={`px-9 py-2.5 ${initialColor.color} rounded-full relative left-[35%] top-[5px] md:left-[30%] md:top-[15%] lg:left-[13rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
+        className={`px-9 py-2.5 ${initialColor.color} rounded-full relative left-[36.5%] top-[5px] md:left-[40.5%] md:top-[9%] lg:left-[13rem] lg:top-[-20px] ${initialFont} text-white font-bold `}
         onClick={() => handleSubmit()}
       >
         Apply

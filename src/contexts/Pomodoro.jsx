@@ -45,7 +45,8 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "on": {
-      const ini = state.fullOption.map((s) => {
+      // to reduce the time of a particular option and keep the rest intact
+      const optionChange = state.fullOption.map((s) => {
         if (s.name === state.options) {
           return {
             ...s,
@@ -58,12 +59,12 @@ function reducer(state, action) {
         }
         return s;
       });
-      //console.log(state.fullOption);
+
       return {
         ...state,
         status: state.status && state.timer <= 0 ? false : true,
         timer: state.timer <= 0 ? 0 : state.timer - 1,
-        fullOption: ini,
+        fullOption: optionChange,
       };
     }
     case "start/pause": {
@@ -74,6 +75,7 @@ function reducer(state, action) {
       };
     }
     case "restart": {
+      // to restart a particular defaultTime while leaving the rest untouched..
       const newState = state.fullOption.map((s) => {
         if (s.name === state.options) {
           return {
