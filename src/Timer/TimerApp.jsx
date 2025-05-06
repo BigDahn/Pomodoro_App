@@ -9,14 +9,10 @@ function TimerApp() {
   const { timer, dispatch, status, maxValue, initialFont, initialColor } =
     usePomodoro();
 
+  const MaxValue = maxValue * 60;
   const mins = Math.floor(timer / 60);
   const sec = timer % 60;
 
-
-
-  const value = mins < 1 ? sec : mins;
-
-  const MaxValue = mins > 1 ? maxValue : 60;
   useEffect(() => {
     //dispatch({ type: "on" });
     if (status) {
@@ -27,150 +23,103 @@ function TimerApp() {
     }
   }, [status, dispatch]);
 
+  const radius = window.innerWidth < 460 ? 117 : 170;
+
+  const circumference = 2 * Math.PI * radius;
+  const strokeOffset = ((MaxValue - timer) / MaxValue) * circumference;
+
   return (
     <div>
       {timer === 0 ? (
         <button
-          className="h-[22rem] w-[22rem] bg-[#1E213F] rounded-full flex flex-col m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
+          className="h-[25rem] w-[25rem] bg-[#1E213F] rounded-full flex  m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
           role="button"
           onClick={() => {
             dispatch({ type: "restart" });
           }}
         >
-          <div className=" h-[19rem] w-[19rem] bg-[#161932] rounded-full">
-            <CircularProgressbarWithChildren
-              value={mins}
-              maxValue={maxValue}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: `${initialColor}`,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "round",
-                  // Customize transition animation
-                  transition: "stroke-dashoffset 0.5s ease 0s",
-                  // Rotate the path
-
-                  transformOrigin: "center center",
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: "#d6d6d6",
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "round",
-                  // Rotate the trail
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: "#f88",
-                  // Text size
-                  fontSize: "16px",
-                },
-                // Customize background - only used when the `background` prop is true
-                background: {
-                  fill: "#3e98c7",
-                },
-              }}
-            >
-              <div className="flex flex-col">
+          <div className=" h-[22.6rem] w-[22.6rem] bg-[#161932] rounded-full relative flex flex-col">
+            <svg className="h-full w-full absolute rotate-[270deg] ">
+              <circle
+                cy="50%"
+                cx="50%"
+                r={radius}
+                className="circle"
+                stroke="white"
+                strokeWidth={10}
+                fill="none"
+                style={{
+                  strokeDasharray: circumference,
+                  strokeDashoffset: 0,
+                }}
+              />
+            </svg>
+            <div className="flex flex-col cursor-pointer m-auto items-center  ">
+              <div
+                className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
+              >
                 <h2
                   className={`text-[5rem] text-white font-bold text-center ${initialFont}`}
                 >
                   {mins < 10 ? `0${mins}` : mins}:{sec < 10 ? `0${sec}` : sec}
                 </h2>
-                <h4
-                  className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
-                >
-                  RESTART
-                </h4>
               </div>
-            </CircularProgressbarWithChildren>
+
+              <h4
+                className={`text-[25px] font-bold text-white ${initialFont} tracking-[10px] text-center ml-6 `}
+              >
+                RESTART
+              </h4>
+            </div>
           </div>
         </button>
       ) : (
         <button
-          className="h-[22rem] w-[22rem] bg-[#1E213F] rounded-full flex flex-col m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
+          className="h-[25rem] w-[25rem] bg-[#1E213F] rounded-full flex  m-auto  items-center justify-center shadow-2xl shadow-[#2E325A]"
           role="button"
           onClick={() => {
             dispatch({ type: "start/pause" });
           }}
           disabled={timer <= 0}
         >
-          <div className=" h-[19rem] w-[19rem] bg-[#161932] rounded-full">
-            <CircularProgressbarWithChildren
-              value={value}
-              maxValue={MaxValue}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: `${initialColor.fill}`,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "round",
-                  // Customize transition animation
-                  transition: "stroke-dashoffset 0.5s ease 0s",
-                  // Rotate the path
-
-                  transformOrigin: "center center",
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: "#d6d6d6",
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "round",
-                  // Rotate the trail
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: "#f88",
-                  // Text size
-                  fontSize: "16px",
-                },
-                // Customize background - only used when the `background` prop is true
-                background: {
-                  fill: "#3e98c7",
-                },
-              }}
-            >
-              <div className="flex flex-col cursor-pointer w-[15rem] m-auto items-center  ">
-                <div
-                  className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
+          <div className=" h-[22.6rem] w-[22.6rem] bg-[#161932] rounded-full relative flex flex-col">
+            <svg className="h-full w-full absolute rotate-[270deg] ">
+              <circle
+                cy="50%"
+                cx="50%"
+                r={radius}
+                className="circle"
+                stroke={initialColor.fill}
+                strokeWidth={10}
+                fill="none"
+                style={{
+                  strokeDasharray: circumference,
+                  strokeDashoffset: strokeOffset,
+                }}
+              />
+            </svg>
+            <div className="flex flex-col cursor-pointer m-auto items-center  ">
+              <div
+                className={`text-[4.5rem] text-white font-bold text-center ${initialFont} flex items-center gap-1 w-[14rem] justify-evenly   m-auto`}
+              >
+                <h4 className="w-[7rem]">{mins < 10 ? `0${mins}` : mins}</h4>:
+                <h3
+                  className={`${
+                    mins < 1 && sec < 30
+                      ? "w-[7rem] text-red-600 animate-pulse"
+                      : "w-[7rem] "
+                  }`}
                 >
-                    <h4 className="w-[7rem]">
-                    {mins < 10 ? `0${mins}` : mins}
-                  </h4>
-                  :
-                  <h3
-                    className={`${
-                      mins < 1 && sec < 30
-                        ? "w-[7rem] text-red-600 animate-pulse"
-                        : "w-[7rem] "
-                    }`}
-                  >
-                    {" "}
-                    {sec < 10 ? `0${sec}` : sec}
-                  </h3>
-                </div>
-                <h4
-                  className={`text-[20px] font-bold text-white ${initialFont} tracking-[5px] text-center`}
-                >
-                  {status ? "PAUSE" : "START"}
-                </h4>
+                  {" "}
+                  {sec < 10 ? `0${sec}` : sec}
+                </h3>
               </div>
-            </CircularProgressbarWithChildren>
+              <h4
+                className={`text-[25px] font-bold text-white ${initialFont} tracking-[10px] text-center ml-3 `}
+              >
+                {status ? "PAUSE" : "START"}
+              </h4>
+            </div>
           </div>
         </button>
       )}

@@ -136,7 +136,7 @@ function SettingsModal() {
                       <button
                         onClick={() => DecreaseButton(name)}
                         className="cursor-pointer disabled:cursor-not-allowed"
-                        disabled={defaultTime === 5}
+                        disabled={defaultTime <= 1}
                       >
                         <img src="/assets/icon-arrow-down.svg" />
                       </button>

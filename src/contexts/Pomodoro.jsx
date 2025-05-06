@@ -136,20 +136,33 @@ function reducer(state, action) {
       };
     }
     case "apply": {
+      const init = action.payload.changeTime.filter(
+        (s) => s.name === state.options
+      )[0].defaultTime;
+
+      const stateOption = state.fullOption.filter(
+        (s) => s.name === state.options
+      )[0].name;
+
+      const timer =
+        action.payload.changeTime.filter((s) => s.name === state.options)[0]
+          .defaultTime * 60;
+
       return {
         ...state,
         //defaultTime: action.payload.changeTime.map((s) => s.defaultTime),
         initialColor: action.payload.changedColor,
         initialFont: action.payload.changedFont,
         isModal: false,
-        timer: action.payload.changeTime.map((s) => s.defaultTime)[0] * 60,
+        timer: timer,
         fullOption: action.payload.changeTime.map((s) => {
           return {
             ...s,
             defaultTime: s.defaultTime * 60,
           };
         }),
-        options: state.fullOption.map((s) => s.name)[0],
+        options: stateOption,
+        maxValue: init,
       };
     }
   }
