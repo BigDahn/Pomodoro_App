@@ -10,7 +10,6 @@ function SettingsModal() {
     initialColor,
     color,
     fullOptions,
-    isModal,
   } = usePomodoro();
 
   const [changedFont, setChangedFonts] = useState(initialFont);

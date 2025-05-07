@@ -6,20 +6,16 @@ import {
 } from "react-circular-progressbar";
 
 function TimerApp() {
-  const {
-    timer,
-    dispatch,
-    status,
-    maxValue,
-    initialFont,
-    initialColor,
-    fullOption,
-  } = usePomodoro();
+  const { timer, dispatch, status, maxValue, initialColor } = usePomodoro();
 
-  console.log(maxValue);
   const MaxValue = maxValue * 60;
   const mins = Math.floor(timer / 60);
   const sec = timer % 60;
+
+  // for the circle
+  const radius = window.innerWidth < 460 ? 117 : 170;
+  const circumference = 2 * Math.PI * radius;
+  const strokeOffset = ((MaxValue - timer) / MaxValue) * circumference;
 
   useEffect(() => {
     //dispatch({ type: "on" });
@@ -30,14 +26,6 @@ function TimerApp() {
       return () => clearInterval(time);
     }
   }, [status, dispatch]);
-
-  const radius = window.innerWidth < 460 ? 117 : 170;
-
-  const circumference = 2 * Math.PI * radius;
-  const strokeOffset = ((MaxValue - timer) / MaxValue) * circumference;
-  console.log(MaxValue);
-  console.log(timer);
-  console.log(fullOption);
 
   return (
     <div>
