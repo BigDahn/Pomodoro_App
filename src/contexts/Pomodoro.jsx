@@ -7,26 +7,31 @@ const color = [
   {
     color: "bg-[#f87070]",
     fill: "#f87070",
+    textColor: "text-[#f87070]",
   },
   {
     color: "bg-[#70f2f7]",
     fill: "#70f2f7",
+    textColor: "text-[#70f2f7]",
   },
   {
     color: "bg-[#d881f8]",
     fill: "#d881f8",
+    textColor: "text-[#d881f8]",
   },
 ];
+
+const seconds = 60;
 
 const fullOptions = [
   {
     name: "pomodoro",
-    defaultTime: 1500,
+    defaultTime: 25 * seconds,
   },
-  { name: "short break", defaultTime: 300 },
+  { name: "short break", defaultTime: 5 * seconds },
   {
     name: "long break",
-    defaultTime: 900,
+    defaultTime: 15 * seconds,
   },
 ];
 
@@ -40,6 +45,7 @@ const initialState = {
   initialFont: fonts.at(0),
   initialColor: color.at(0),
   fullOption: fullOptions,
+  editedFullOption: fullOptions, // state changes after edit is made on the input field
 };
 
 function reducer(state, action) {
@@ -80,8 +86,9 @@ function reducer(state, action) {
         if (s.name === state.options) {
           return {
             ...s,
-            defaultTime: fullOptions.filter((s) => s.name === state.options)[0]
-              .defaultTime,
+            defaultTime: state.editedFullOption.filter(
+              (s) => s.name === state.options
+            )[0].defaultTime,
           };
         }
         return s;
@@ -156,6 +163,12 @@ function reducer(state, action) {
         isModal: false,
         timer: timer,
         fullOption: action.payload.changeTime.map((s) => {
+          return {
+            ...s,
+            defaultTime: s.defaultTime * 60,
+          };
+        }),
+        editedFullOption: action.payload.changeTime.map((s) => {
           return {
             ...s,
             defaultTime: s.defaultTime * 60,

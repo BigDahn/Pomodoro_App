@@ -6,14 +6,19 @@ import { usePomodoro } from "./contexts/Pomodoro";
 import SettingsModal from "./Modal/SettingsModal";
 
 function App() {
-  const { isModal } = usePomodoro();
+  const { isModal, initialFont } = usePomodoro();
+
   return (
-    <div className="flex gap-6 flex-col items-center m-auto py-10">
-      {isModal && <SettingsModal />}
-      <Heading />
-      <TimerApp />
-      <Settings />
-    </div>
+    <>
+      <div
+        className={`flex gap-6 flex-col items-center m-auto py-10 relative w-full ${initialFont}`}
+      >
+        <Heading />
+        <TimerApp />
+        <Settings />
+        {isModal && <SettingsModal />}
+      </div>
+    </>
   );
 }
 
