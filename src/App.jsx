@@ -13,10 +13,10 @@ function App() {
       <div
         className={`flex gap-6 flex-col items-center m-auto py-10 relative w-full ${initialFont}`}
       >
+        {isModal && <SettingsModal />}
         <Heading />
         <TimerApp />
         <Settings />
-        {isModal && <SettingsModal />}
       </div>
     </>
   );
