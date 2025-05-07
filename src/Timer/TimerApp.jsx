@@ -16,6 +16,7 @@ function TimerApp() {
     fullOption,
   } = usePomodoro();
 
+  console.log(maxValue);
   const MaxValue = maxValue * 60;
   const mins = Math.floor(timer / 60);
   const sec = timer % 60;
@@ -34,7 +35,7 @@ function TimerApp() {
 
   const circumference = 2 * Math.PI * radius;
   const strokeOffset = ((MaxValue - timer) / MaxValue) * circumference;
-
+  console.log(MaxValue);
   console.log(timer);
   console.log(fullOption);
 

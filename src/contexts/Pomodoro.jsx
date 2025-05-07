@@ -116,11 +116,12 @@ function reducer(state, action) {
         ...state,
         options: state.fullOption.filter((s) => s.name === action.payload)[0]
           .name,
-        timer: state.fullOption.filter((s) => s.name === action.payload)[0]
-          .defaultTime,
+        timer: state.editedFullOption.filter(
+          (s) => s.name === action.payload
+        )[0].defaultTime,
         maxValue:
-          fullOptions.filter((s) => s.name === action.payload)[0].defaultTime /
-          60,
+          state.editedFullOption.filter((s) => s.name === action.payload)[0]
+            .defaultTime / 60,
         status: false,
       };
     }
