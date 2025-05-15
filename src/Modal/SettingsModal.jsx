@@ -3,14 +3,8 @@ import { usePomodoro } from "../contexts/Pomodoro";
 import { FaCheck } from "react-icons/fa";
 
 function SettingsModal() {
-  const {
-    dispatch,
-    initialFont,
-    fonts,
-    initialColor,
-    color,
-    fullOptions,
-  } = usePomodoro();
+  const { dispatch, initialFont, fonts, initialColor, color, fullOptions } =
+    usePomodoro();
 
   const [changedFont, setChangedFonts] = useState(initialFont);
   const [changedColor, setChangedColor] = useState(initialColor);
@@ -122,7 +116,7 @@ function SettingsModal() {
                       <button
                         onClick={() => DecreaseButton(name)}
                         className="cursor-pointer disabled:cursor-not-allowed"
-                        disabled={defaultTime === 25}
+                        disabled={defaultTime <= 1}
                       >
                         <img src="/assets/icon-arrow-down.svg" />
                       </button>
@@ -159,7 +153,7 @@ function SettingsModal() {
                       </button>
                       <button
                         onClick={() => DecreaseButton(name)}
-                        disabled={defaultTime === 15}
+                        disabled={defaultTime <= 1}
                         className="cursor-pointer disabled:cursor-not-allowed"
                       >
                         <img src="/assets/icon-arrow-down.svg" />
